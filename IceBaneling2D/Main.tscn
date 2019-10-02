@@ -5,10 +5,10 @@
 [ext_resource path="res://KinematicBody2D.gd" type="Script" id=3]
 [ext_resource path="res://potato.png" type="Texture" id=4]
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 74.5262, 74.5263 )
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 20.638, 17.2663 )
 
 [node name="Control" type="Control"]
@@ -29,7 +29,7 @@ scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="IceFloor"]
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="Potato" type="KinematicBody2D" parent="."]
 position = Vector2( 656.355, 310.134 )
@@ -44,6 +44,6 @@ texture = ExtResource( 4 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Potato"]
 position = Vector2( -0.348267, -0.167419 )
 scale = Vector2( 0.7, 0.7 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 [connection signal="body_entered" from="IceFloor" to="Potato" method="_on_IceFloor_body_entered"]
 [connection signal="body_exited" from="IceFloor" to="Potato" method="_on_IceFloor_body_exited"]

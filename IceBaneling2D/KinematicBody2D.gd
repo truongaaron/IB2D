@@ -1,5 +1,11 @@
 extends KinematicBody2D
 
+var location = Vector2(0, 0)
+var velocity = Vector2(0, 0)
+var acceleration = Vector2(0, 0)
+var maxspeed = 4
+var maxforce = .1
+
 var destination = Vector2()
 var gap = Vector2()
 var speed = null
@@ -30,3 +36,31 @@ func _on_IceFloor_body_entered(body):
 func _on_IceFloor_body_exited(body):
 	if body.name == "Potato":
 		speed = 100
+
+func update():
+	velocity += acceleration
+	velocity = limit(maxspeed, velocity)
+	location += velocity
+	acceleration *= 0
+
+func applyForce(force):
+	acceleration += force
+
+func seek(target):
+	var desired = Vector2(0, 0)
+	desired = target - location
+	desired = desired.normalized()
+	desired *= maxspeed
+	var steer = Vector2(0, 0)
+	steer = desired - velocity
+	steer = limit(maxforce, steer)
+	applyForce(steer)
+
+func limit(value, vec):
+	var length = vec.x*vec.x + vec.y*vec.y
+	
+	if (length*length > value*value) and (length*length) > 0:
+		var ratio = value/(sqrt(length))
+		vec.x *= ratio
+		vec.y *= ratio
+	return Vector2(vec.x, vec.y)
