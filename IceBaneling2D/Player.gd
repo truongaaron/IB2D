@@ -6,15 +6,33 @@ var acceleration = Vector2(0, 0)
 var maxspeed = 4
 var maxforce = .1
 
+
 var destination = Vector2()
+var on_ice_destination = Vector2()
+
 var gap = Vector2()
 var speed = null
+var on_ice = false
 
 func _ready():
 	speed = 100
 	destination = Vector2(position.x, position.y)
-	
+
+func _input(event):
+	if Input.is_action_just_pressed("click"):
+		destination = get_global_mouse_position()
+		seek(Vector2(destination.x, destination.y))
+		update()
+
 func _process(delta):
+	if on_ice and position != on_ice_destination:
+		gap = Vector2(on_ice_destination.x - position.x, on_ice_destination.y - position.y)
+		move_and_slide(gap.normalized() * speed)
+		if gap.abs() < Vector2(1,1):
+			set_position(on_ice_destination)
+	if on_ice_destination == position:
+		move_and_slide(gap*0)
+		
 	if position != destination:
 		gap = Vector2(destination.x - position.x, destination.y - position.y)
 		move_and_slide(gap.normalized() * speed)
@@ -22,24 +40,10 @@ func _process(delta):
 			set_position(destination)
 	if destination == position:
 		move_and_slide(gap*0)
-	
-	
-func _input(event):
-	if Input.is_action_just_pressed("click"):
-		destination = get_global_mouse_position()
-
-func _on_IceFloor_body_entered(body):
-	if body.name == "Potato":
-		speed = 200
-
-
-func _on_IceFloor_body_exited(body):
-	if body.name == "Potato":
-		speed = 100
 
 func update():
 	velocity += acceleration
-	velocity = limit(maxspeed, velocity)
+	limit(maxspeed, velocity)
 	location += velocity
 	acceleration *= 0
 
@@ -53,14 +57,22 @@ func seek(target):
 	desired *= maxspeed
 	var steer = Vector2(0, 0)
 	steer = desired - velocity
-	steer = limit(maxforce, steer)
+	limit(maxforce, steer)
 	applyForce(steer)
 
 func limit(value, vec):
-	var length = vec.x*vec.x + vec.y*vec.y
+	var length = vec.length()
 	
-	if (length*length > value*value) and (length*length) > 0:
-		var ratio = value/(sqrt(length))
+	if length > value:
+		var ratio = value/length
 		vec.x *= ratio
 		vec.y *= ratio
-	return Vector2(vec.x, vec.y)
+
+func _on_IceFloor_body_entered(body):
+	if body.name == "Potato":
+		on_ice = true
+
+func _on_IceFloor_body_exited(body):
+	if body.name == "Potato":
+		speed = 150
+		on_ice = false
