@@ -8,6 +8,7 @@ var maxforce = .1
 
 export var default_friction = 0.5
 export var ice_friction = 0.01
+export var oil_friction = .0001
 
 var destination = Vector2()
 var on_ice_destination = Vector2()
@@ -15,6 +16,9 @@ var on_ice_destination = Vector2()
 var gap = Vector2()
 export var speed = 200
 var on_ice = false
+var on_oil = false
+
+var checkpoint = preload("res://checkpoint.gd")
 
 func _ready():
 	destination = Vector2(position.x, position.y)
@@ -53,10 +57,13 @@ func _process(delta):
 		var friction = default_friction
 		if on_ice:
 			friction = ice_friction
-		
+		elif on_oil:
+			friction = oil_friction
+			
 		velocity = friction*desired_velocity + (1-friction)*velocity
 		
 		move_and_slide(velocity)
+		
 		
 			
 func update():
@@ -89,9 +96,24 @@ func limit(value, vec):
 
 func _on_IceFloor_body_entered(body):
 	if body.name == "Potato":
+		speed = 180
 		on_ice = true
 
 func _on_IceFloor_body_exited(body):
 	if body.name == "Potato":
 		speed = 150
 		on_ice = false
+
+func _on_OilyFloor_body_entered(body):
+	if body.name == "Potato":
+		speed = 300
+		on_oil = true
+
+func _on_OilyFloor_body_exited(body):
+	if body.name == "Potato":
+		speed = 150
+		on_oil = false
+		
+func _on_Enemy4_body_entered(body):
+	if body.name == "Potato":
+		self.queue_free()
