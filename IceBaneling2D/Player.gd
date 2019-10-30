@@ -20,8 +20,12 @@ var on_oil = false
 
 var checkpoint = preload("res://checkpoint.gd")
 
+var respawn_location = Vector2(0,0)
+
 func _ready():
 	destination = Vector2(position.x, position.y)
+	respawn_location.x = position.x
+	respawn_location.y = position.y
 
 func _input(event):
 	if Input.is_action_just_pressed("click"):
@@ -113,7 +117,15 @@ func _on_OilyFloor_body_exited(body):
 	if body.name == "Potato":
 		speed = 150
 		on_oil = false
+	
+
+func respawn():
+	set_position(respawn_location)
+	
+func _on_Potato_Area_Entered(area):
+	if area.is_in_group("Enemy"):
+		respawn()
+	if area.is_in_group("checkpoint"):
+		respawn_location.x = area.position.x
+		respawn_location.y = area.position.y
 		
-func _on_Enemy4_body_entered(body):
-	if body.name == "Potato":
-		self.queue_free()

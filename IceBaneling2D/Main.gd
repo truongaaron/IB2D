@@ -9,7 +9,7 @@ func _ready():
 	
 func _input(event):
 	if Input.is_action_just_pressed("click"):
-		var pos = get_viewport().get_mouse_position()
+		var pos = get_global_mouse_position()
 		s.position.x = pos.x
 		s.position.y = pos.y
 		add_child(s)

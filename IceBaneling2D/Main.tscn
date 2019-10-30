@@ -25,6 +25,7 @@ margin_bottom = 40.0
 script = ExtResource( 1 )
 
 [node name="background" type="Sprite" parent="."]
+visible = false
 position = Vector2( 531.928, 267.969 )
 scale = Vector2( 7.46472, 4.33469 )
 texture = ExtResource( 2 )
@@ -55,21 +56,30 @@ script = ExtResource( 6 )
 position = Vector2( -57.9565, 64.2199 )
 script = ExtResource( 7 )
 
-[node name="Enemy4" parent="." instance=ExtResource( 8 )]
+[node name="Enemy4" parent="." groups=[
+"Enemy",
+] instance=ExtResource( 8 )]
 position = Vector2( 72.8562, 282.154 )
 script = ExtResource( 9 )
 
-[node name="checkpoint" parent="." instance=ExtResource( 10 )]
-position = Vector2( 992.434, 273.56 )
+[node name="checkpoint" parent="." groups=[
+"checkpoint",
+] instance=ExtResource( 10 )]
+position = Vector2( 991.434, 281.56 )
+scale = Vector2( 0.2, 0.5 )
+
+[node name="checkpoint2" parent="." groups=[
+"checkpoint",
+] instance=ExtResource( 10 )]
+position = Vector2( 429.669, 270.696 )
 scale = Vector2( 0.2, 0.5 )
 
 [node name="Potato" type="KinematicBody2D" parent="."]
 light_mask = 4
-position = Vector2( 656.355, 310.134 )
+position = Vector2( 991.437, 281.495 )
 scale = Vector2( 0.7, 0.7 )
 script = ExtResource( 11 )
 default_friction = 0.1
-ice_friction = 0.001
 oil_friction = 0.001
 
 [node name="potato" type="Sprite" parent="Potato"]
@@ -77,12 +87,24 @@ position = Vector2( 0.271088, -0.318214 )
 scale = Vector2( 0.7, 0.7 )
 texture = ExtResource( 12 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Potato"]
-position = Vector2( -0.348267, -0.167419 )
+[node name="Area2D" type="Area2D" parent="Potato"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Potato/Area2D"]
+position = Vector2( -0.348206, -0.167419 )
 scale = Vector2( 0.7, 0.7 )
 shape = SubResource( 2 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Potato"]
+position = Vector2( -0.348206, -0.167419 )
+scale = Vector2( 0.7, 0.7 )
+shape = SubResource( 2 )
+
+[node name="Camera2D" type="Camera2D" parent="Potato"]
+position = Vector2( 0.617065, -1.03986 )
+current = true
+smoothing_enabled = true
 [connection signal="body_entered" from="OilyFloor" to="Potato" method="_on_OilyFloor_body_entered"]
 [connection signal="body_exited" from="OilyFloor" to="Potato" method="_on_OilyFloor_body_exited"]
 [connection signal="body_entered" from="IceFloor" to="Potato" method="_on_IceFloor_body_entered"]
 [connection signal="body_exited" from="IceFloor" to="Potato" method="_on_IceFloor_body_exited"]
-[connection signal="body_entered" from="Enemy4" to="Potato" method="_on_Enemy4_body_entered"]
+[connection signal="area_entered" from="Potato/Area2D" to="Potato" method="_on_Potato_Area_Entered"]
