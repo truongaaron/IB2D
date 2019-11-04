@@ -1,23 +1,18 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://background.png" type="Texture" id=2]
-[ext_resource path="res://oily_floor.tscn" type="PackedScene" id=3]
-[ext_resource path="res://icy surface.png" type="Texture" id=4]
-[ext_resource path="res://Enemy.tscn" type="PackedScene" id=5]
-[ext_resource path="res://EnemySideToSide.gd" type="Script" id=6]
-[ext_resource path="res://EnemyCircle.gd" type="Script" id=7]
-[ext_resource path="res://EnemyArea2D.tscn" type="PackedScene" id=8]
-[ext_resource path="res://EnemyArea2D.gd" type="Script" id=9]
-[ext_resource path="res://checkpoint.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Player.gd" type="Script" id=11]
-[ext_resource path="res://potato.png" type="Texture" id=12]
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 74.5262, 74.5263 )
-
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 20.638, 17.2663 )
+[ext_resource path="res://DonutArea2D.tscn" type="PackedScene" id=3]
+[ext_resource path="res://OilyFloor.tscn" type="PackedScene" id=4]
+[ext_resource path="res://IceFloor.tscn" type="PackedScene" id=5]
+[ext_resource path="res://checkpoint.tscn" type="PackedScene" id=6]
+[ext_resource path="res://EnemyCircle.tscn" type="PackedScene" id=7]
+[ext_resource path="res://EnemyArea2D.gd" type="Script" id=8]
+[ext_resource path="res://EnemySideToSide.gd" type="Script" id=9]
+[ext_resource path="res://EnemyUpDown.gd" type="Script" id=10]
+[ext_resource path="res://Potato.tscn" type="PackedScene" id=11]
+[ext_resource path="res://PotatoArea2D.tscn" type="PackedScene" id=12]
+[ext_resource path="res://PotatoArea2DTest.gd" type="Script" id=13]
 
 [node name="Control" type="Control"]
 margin_right = 40.0
@@ -25,86 +20,57 @@ margin_bottom = 40.0
 script = ExtResource( 1 )
 
 [node name="background" type="Sprite" parent="."]
-visible = false
 position = Vector2( 531.928, 267.969 )
 scale = Vector2( 7.46472, 4.33469 )
 texture = ExtResource( 2 )
 
-[node name="OilyFloor" parent="." instance=ExtResource( 3 )]
-position = Vector2( 317.176, 255.144 )
+[node name="DonutArea2D" parent="." instance=ExtResource( 3 )]
+position = Vector2( 780.76, 130.272 )
+
+[node name="OilyFloor" parent="." instance=ExtResource( 4 )]
+position = Vector2( 319.337, 256.225 )
 scale = Vector2( 2, 2 )
 
-[node name="IceFloor" type="Area2D" parent="."]
-position = Vector2( 531.572, 268.683 )
-
-[node name="icy surface" type="Sprite" parent="IceFloor"]
-position = Vector2( -0.210571, 0.210541 )
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 4 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="IceFloor"]
-shape = SubResource( 1 )
-
-[node name="Enemy" parent="." instance=ExtResource( 5 )]
-position = Vector2( 20.8218, 18.4328 )
-
-[node name="Enemy2" parent="." instance=ExtResource( 5 )]
-position = Vector2( 22.7863, 104.927 )
-script = ExtResource( 6 )
-
-[node name="Enemy3" parent="." instance=ExtResource( 5 )]
-position = Vector2( -57.9565, 64.2199 )
-script = ExtResource( 7 )
-
-[node name="Enemy4" parent="." groups=[
-"Enemy",
-] instance=ExtResource( 8 )]
-position = Vector2( 72.8562, 282.154 )
-script = ExtResource( 9 )
+[node name="IceFloor" parent="." instance=ExtResource( 5 )]
+position = Vector2( 534.4, 270.053 )
 
 [node name="checkpoint" parent="." groups=[
-"checkpoint",
-] instance=ExtResource( 10 )]
-position = Vector2( 991.434, 281.56 )
-scale = Vector2( 0.2, 0.5 )
+"Checkpoint",
+] instance=ExtResource( 6 )]
+position = Vector2( 991.414, 281.478 )
+scale = Vector2( 0.194175, 0.423178 )
 
 [node name="checkpoint2" parent="." groups=[
-"checkpoint",
-] instance=ExtResource( 10 )]
-position = Vector2( 429.669, 270.696 )
-scale = Vector2( 0.2, 0.5 )
+"Checkpoint",
+] instance=ExtResource( 6 )]
+position = Vector2( 429.638, 270.832 )
+scale = Vector2( 0.197206, -0.503281 )
 
-[node name="Potato" type="KinematicBody2D" parent="."]
-light_mask = 4
-position = Vector2( 991.437, 281.495 )
-scale = Vector2( 0.7, 0.7 )
-script = ExtResource( 11 )
-default_friction = 0.1
-oil_friction = 0.001
+[node name="Enemy" parent="." groups=[
+"Enemy",
+] instance=ExtResource( 7 )]
+position = Vector2( 88.7085, 80.1146 )
+script = ExtResource( 8 )
 
-[node name="potato" type="Sprite" parent="Potato"]
-position = Vector2( 0.271088, -0.318214 )
-scale = Vector2( 0.7, 0.7 )
-texture = ExtResource( 12 )
+[node name="Enemy2" parent="." groups=[
+"Enemy",
+] instance=ExtResource( 7 )]
+position = Vector2( 87.7841, 79.0843 )
+script = ExtResource( 9 )
 
-[node name="Area2D" type="Area2D" parent="Potato"]
+[node name="Enemy3" parent="." groups=[
+"Enemy",
+] instance=ExtResource( 7 )]
+position = Vector2( 87.0273, 78.2368 )
+script = ExtResource( 10 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Potato/Area2D"]
-position = Vector2( -0.348206, -0.167419 )
-scale = Vector2( 0.7, 0.7 )
-shape = SubResource( 2 )
+[node name="Potato" parent="." instance=ExtResource( 11 )]
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Potato"]
-position = Vector2( -0.348206, -0.167419 )
-scale = Vector2( 0.7, 0.7 )
-shape = SubResource( 2 )
-
-[node name="Camera2D" type="Camera2D" parent="Potato"]
-position = Vector2( 0.617065, -1.03986 )
-current = true
-smoothing_enabled = true
+[node name="PotatoArea2D" parent="." instance=ExtResource( 12 )]
+position = Vector2( 666.226, 126.981 )
+scale = Vector2( 2.5, 2.5 )
+script = ExtResource( 13 )
 [connection signal="body_entered" from="OilyFloor" to="Potato" method="_on_OilyFloor_body_entered"]
 [connection signal="body_exited" from="OilyFloor" to="Potato" method="_on_OilyFloor_body_exited"]
 [connection signal="body_entered" from="IceFloor" to="Potato" method="_on_IceFloor_body_entered"]
 [connection signal="body_exited" from="IceFloor" to="Potato" method="_on_IceFloor_body_exited"]
-[connection signal="area_entered" from="Potato/Area2D" to="Potato" method="_on_Potato_Area_Entered"]

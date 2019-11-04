@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends Area2D
 
 var location = Vector2(0, 0)
 var velocity = Vector2(0, 0)
@@ -18,6 +18,9 @@ export var speed = 100
 var on_ice = false
 var on_oil = false
 
+onready var sprite = preload("res://ClickIndicator.tscn")
+var s = null
+
 var respawn_location = Vector2(0,0)
 
 func _ready():
@@ -28,8 +31,10 @@ func _ready():
 func _input(event):
 	if Input.is_action_just_pressed("click"):
 		destination = get_global_mouse_position()
+		seek(Vector2(destination.x, destination.y))
+		update()
 
-func _process(delta):	
+func _process(delta):
 		gap = Vector2(destination.x - position.x, destination.y - position.y)
 		var direction = gap.normalized()
 		if gap.length() < 1:
@@ -43,11 +48,39 @@ func _process(delta):
 			
 		velocity = friction*desired_velocity + (1-friction)*velocity
 		
-		move_and_slide(velocity)
+		#move_and_slide(velocity)
+
+func update():
+	#velocity += acceleration
+	#limit(maxspeed, velocity)
+	#location += velocity
+	#acceleration *= 0
+	pass
+	
+func applyForce(force):
+	acceleration += force
+
+func seek(target):
+	var desired = Vector2(0, 0)
+	desired = target - location
+	desired = desired.normalized()
+	desired *= maxspeed
+	var steer = Vector2(0, 0)
+	steer = desired - velocity
+	limit(maxforce, steer)
+	applyForce(steer)
+
+func limit(value, vec):
+	var length = vec.length()
+	
+	if length > value:
+		var ratio = value/length
+		vec.x *= ratio
+		vec.y *= ratio
 
 func _on_IceFloor_body_entered(body):
 	if body.name == "Potato":
-		speed = 130
+		speed = 90
 		on_ice = true
 
 func _on_IceFloor_body_exited(body):
@@ -57,13 +90,14 @@ func _on_IceFloor_body_exited(body):
 
 func _on_OilyFloor_body_entered(body):
 	if body.name == "Potato":
-		speed = 180
+		speed = 150
 		on_oil = true
 
 func _on_OilyFloor_body_exited(body):
 	if body.name == "Potato":
 		speed = 200
 		on_oil = false
+	
 
 func respawn():
 	set_position(respawn_location)
@@ -73,7 +107,6 @@ func _on_Potato_Area_Entered(area):
 		destination.x = respawn_location.x
 		destination.y = respawn_location.y
 		respawn()
-	if area.is_in_group("Checkpoint"):
+	if area.is_in_group("checkpoint"):
 		respawn_location.x = area.position.x
 		respawn_location.y = area.position.y
-

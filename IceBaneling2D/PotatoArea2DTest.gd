@@ -23,3 +23,6 @@ func _physics_process(delta):
 		position.x += distance-speed
 		if position.x <= initial_pos_x:
 			switch = false
+
+func _on_DonutArea2D_area_entered(area):
+	pass # Replace with function body.

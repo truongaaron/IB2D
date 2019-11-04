@@ -1,26 +1,25 @@
-extends KinematicBody2D
+extends Area2D
 
-var direction = Vector2()
-
-const UP = Vector2(0, -1)
-const DOWN = Vector2(0, 1)
-
+var distance = 0
 var pos_y = 0
 var initial_pos_y = 0
 
-export var speed = 200
+var switch = false
+
+export var speed = 4
 var velocity = Vector2()
 
 func _ready():
 	pos_y = position.y + 300
-	print(pos_y)
 	initial_pos_y = position.y
 	
 func _physics_process(delta):
-	if position.y <= initial_pos_y:
-		velocity = DOWN
-	elif position.y > pos_y:
-		velocity = UP
-		
-	move_and_slide(velocity.normalized() * speed)
-	
+	if !switch:
+		position.y += distance+speed
+		if position.y > pos_y:
+			switch = true
+	elif switch:
+		distance = 0
+		position.y += distance-speed
+		if position.y <= initial_pos_y:
+			switch = false
