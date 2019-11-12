@@ -15,11 +15,11 @@ func _ready():
 	
 func _physics_process(delta):
 	if !switch:
-		position.x += distance+speed
+		position.x += distance+speed*delta
 		if position.x > pos_x:
 			switch = true
 	elif switch:
 		distance = 0
-		position.x += distance-speed
+		position.x += distance-speed*delta
 		if position.x <= initial_pos_x:
 			switch = false

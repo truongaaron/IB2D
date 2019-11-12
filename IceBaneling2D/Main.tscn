@@ -1,11 +1,11 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://background.png" type="Texture" id=2]
-[ext_resource path="res://DonutArea2D.tscn" type="PackedScene" id=3]
-[ext_resource path="res://OilyFloor.tscn" type="PackedScene" id=4]
-[ext_resource path="res://IceFloor.tscn" type="PackedScene" id=5]
-[ext_resource path="res://checkpoint.tscn" type="PackedScene" id=6]
+[ext_resource path="res://OilyFloor.tscn" type="PackedScene" id=3]
+[ext_resource path="res://IceFloor.tscn" type="PackedScene" id=4]
+[ext_resource path="res://checkpoint.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Donut.tscn" type="PackedScene" id=6]
 [ext_resource path="res://EnemyCircle.tscn" type="PackedScene" id=7]
 [ext_resource path="res://EnemyArea2D.gd" type="Script" id=8]
 [ext_resource path="res://EnemySideToSide.gd" type="Script" id=9]
@@ -13,6 +13,9 @@
 [ext_resource path="res://Potato.tscn" type="PackedScene" id=11]
 [ext_resource path="res://PotatoArea2D.tscn" type="PackedScene" id=12]
 [ext_resource path="res://PotatoArea2DTest.gd" type="Script" id=13]
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 0 ), 0.0, 1.4, 0, 0, Vector2( 0.496345, 0.7288 ), 0.885132, 0.885132, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
 
 [node name="Control" type="Control"]
 margin_right = 40.0
@@ -24,27 +27,30 @@ position = Vector2( 531.928, 267.969 )
 scale = Vector2( 7.46472, 4.33469 )
 texture = ExtResource( 2 )
 
-[node name="DonutArea2D" parent="." instance=ExtResource( 3 )]
-position = Vector2( 780.76, 130.272 )
-
-[node name="OilyFloor" parent="." instance=ExtResource( 4 )]
+[node name="OilyFloor" parent="." instance=ExtResource( 3 )]
 position = Vector2( 319.337, 256.225 )
 scale = Vector2( 2, 2 )
 
-[node name="IceFloor" parent="." instance=ExtResource( 5 )]
+[node name="IceFloor" parent="." instance=ExtResource( 4 )]
 position = Vector2( 534.4, 270.053 )
 
 [node name="checkpoint" parent="." groups=[
 "Checkpoint",
-] instance=ExtResource( 6 )]
+] instance=ExtResource( 5 )]
 position = Vector2( 991.414, 281.478 )
 scale = Vector2( 0.194175, 0.423178 )
 
 [node name="checkpoint2" parent="." groups=[
 "Checkpoint",
-] instance=ExtResource( 6 )]
+] instance=ExtResource( 5 )]
 position = Vector2( 429.638, 270.832 )
 scale = Vector2( 0.197206, -0.503281 )
+
+[node name="Donut" parent="." groups=[
+"Donut",
+] instance=ExtResource( 6 )]
+position = Vector2( 760.725, 225.609 )
+scale = Vector2( 2, 2 )
 
 [node name="Enemy" parent="." groups=[
 "Enemy",
@@ -52,19 +58,39 @@ scale = Vector2( 0.197206, -0.503281 )
 position = Vector2( 88.7085, 80.1146 )
 script = ExtResource( 8 )
 
+[node name="Enemy5" parent="." groups=[
+"Enemy",
+] instance=ExtResource( 7 )]
+position = Vector2( 319.018, 101.212 )
+script = ExtResource( 8 )
+xAxis = Vector2( 0.5, 0.5 )
+yAxis = Vector2( 0, 0.5 )
+
+[node name="Enemy4" parent="." groups=[
+"Enemy",
+] instance=ExtResource( 7 )]
+position = Vector2( 176.613, 335.037 )
+script = ExtResource( 8 )
+width = 0
+
 [node name="Enemy2" parent="." groups=[
 "Enemy",
 ] instance=ExtResource( 7 )]
-position = Vector2( 87.7841, 79.0843 )
+position = Vector2( 217.883, 57.9873 )
 script = ExtResource( 9 )
+speed = 8
 
 [node name="Enemy3" parent="." groups=[
 "Enemy",
 ] instance=ExtResource( 7 )]
-position = Vector2( 87.0273, 78.2368 )
+position = Vector2( 108.124, 183.722 )
 script = ExtResource( 10 )
+speed = 8
+tweening = SubResource( 1 )
 
 [node name="Potato" parent="." instance=ExtResource( 11 )]
+ice_friction = 0.1
+oil_friction = 0.01
 
 [node name="PotatoArea2D" parent="." instance=ExtResource( 12 )]
 position = Vector2( 666.226, 126.981 )

@@ -5,7 +5,7 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 13.7426
 
-[node name="StaticBody2D" type="StaticBody2D"]
+[node name="KinematicBody2D" type="KinematicBody2D"]
 
 [node name="Donut" type="Sprite" parent="."]
 position = Vector2( 0.0303955, 0.0760651 )

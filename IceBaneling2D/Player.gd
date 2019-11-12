@@ -29,21 +29,29 @@ func _input(event):
 	if Input.is_action_just_pressed("click"):
 		destination = get_global_mouse_position()
 
-func _process(delta):	
-		gap = Vector2(destination.x - position.x, destination.y - position.y)
-		var direction = gap.normalized()
-		if gap.length() < 1:
-			direction = gap
-		var desired_velocity = direction*speed
-		var friction = default_friction
-		if on_ice:
-			friction = ice_friction
-		elif on_oil:
-			friction = oil_friction
-			
-		velocity = friction*desired_velocity + (1-friction)*velocity
-		
-		move_and_slide(velocity)
+func _process(delta):
+	var collision = move_and_collide(velocity * delta)
+
+	if collision:
+		if collision.collider.is_in_group("Donut"):
+			velocity = velocity.bounce(collision.normal)*6
+	else:
+		speed = 100
+	
+	gap = Vector2(destination.x - position.x, destination.y - position.y)
+	var direction = gap.normalized()
+	if gap.length() < 1:
+		direction = gap
+	var desired_velocity = direction*speed
+	var friction = default_friction
+	if on_ice:
+		friction = ice_friction
+	elif on_oil:
+		friction = oil_friction
+
+	velocity = friction*desired_velocity + (1-friction)*velocity
+	
+	move_and_slide(velocity)
 
 func _on_IceFloor_body_entered(body):
 	if body.name == "Potato":
