@@ -34,8 +34,8 @@ func _process(delta):
 
 	if collision:
 		if collision.collider.is_in_group("Donut"):
-			velocity = velocity.bounce(collision.normal)*6
-	else:
+			velocity = velocity.bounce(collision.normal) * 30
+	else:	
 		speed = 100
 	
 	gap = Vector2(destination.x - position.x, destination.y - position.y)
@@ -55,7 +55,7 @@ func _process(delta):
 
 func _on_IceFloor_body_entered(body):
 	if body.name == "Potato":
-		speed = 130
+		speed = 100
 		on_ice = true
 
 func _on_IceFloor_body_exited(body):
@@ -65,7 +65,7 @@ func _on_IceFloor_body_exited(body):
 
 func _on_OilyFloor_body_entered(body):
 	if body.name == "Potato":
-		speed = 180
+		speed = 200
 		on_oil = true
 
 func _on_OilyFloor_body_exited(body):
