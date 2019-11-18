@@ -1,89 +1,164 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://IceFloor.tscn" type="PackedScene" id=2]
 [ext_resource path="res://OilyFloor.tscn" type="PackedScene" id=3]
 [ext_resource path="res://checkpoint.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Potato.tscn" type="PackedScene" id=5]
-[ext_resource path="res://EnemyCircle.tscn" type="PackedScene" id=6]
-[ext_resource path="res://EnemyArea2D.gd" type="Script" id=7]
-[ext_resource path="res://Wall.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Donut.tscn" type="PackedScene" id=6]
+[ext_resource path="res://EnemyCircle.tscn" type="PackedScene" id=7]
+[ext_resource path="res://EnemyArea2D.gd" type="Script" id=8]
+[ext_resource path="res://Wall.tscn" type="PackedScene" id=9]
 
 [node name="Control" type="Control"]
 margin_right = 40.0
 margin_bottom = 40.0
 script = ExtResource( 1 )
 
-[node name="IceFloor" parent="." instance=ExtResource( 2 )]
-position = Vector2( 501.352, 202.86 )
+[node name="IceFloor" parent="." groups=[
+"Ice",
+"Floor",
+] instance=ExtResource( 2 )]
+position = Vector2( 997.305, 147.474 )
 scale = Vector2( 26.4128, 17.4009 )
 
-[node name="OilyFloor" parent="." instance=ExtResource( 3 )]
+[node name="OilyFloor" parent="." groups=[
+"Oily",
+"Floor",
+] instance=ExtResource( 3 )]
 position = Vector2( 649.901, -9.63373 )
 scale = Vector2( 3, 3 )
 
-[node name="checkpoint1" parent="." instance=ExtResource( 4 )]
-position = Vector2( 1438.39, 367.183 )
+[node name="checkpoint1" parent="." groups=[
+"Checkpoint",
+] instance=ExtResource( 4 )]
+position = Vector2( 1422.99, 369.467 )
 scale = Vector2( 0.5, 0.5 )
 
-[node name="Potato" parent="." instance=ExtResource( 5 )]
-position = Vector2( 1439.4, 363.353 )
-scale = Vector2( 0.8, 0.8 )
-speed = 100
+[node name="checkpoint2" parent="." groups=[
+"Checkpoint",
+] instance=ExtResource( 4 )]
+position = Vector2( 973.108, -255.349 )
+scale = Vector2( 0.8, 0.37 )
 
-[node name="Enemy" parent="." groups=[
-"Enemy",
+[node name="Potato" parent="." instance=ExtResource( 5 )]
+position = Vector2( 1424.23, 370.818 )
+scale = Vector2( 0.8, 0.8 )
+ice_friction = 0.1
+
+[node name="Donut" parent="." groups=[
+"Donut",
 ] instance=ExtResource( 6 )]
-position = Vector2( 1284.89, 120.841 )
-scale = Vector2( 0.7, 0.7 )
-script = ExtResource( 7 )
-width = 145
-height = 0
+position = Vector2( 1150.79, -114.064 )
+scale = Vector2( 3, 3 )
 
 [node name="Enemy2" parent="." groups=[
 "Enemy",
-] instance=ExtResource( 6 )]
+] instance=ExtResource( 7 )]
 position = Vector2( 704.26, 118.682 )
 scale = Vector2( 0.7, 0.7 )
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 width = 145
 height = 0
 
 [node name="Enemy3" parent="." groups=[
 "Enemy",
-] instance=ExtResource( 6 )]
+] instance=ExtResource( 7 )]
 position = Vector2( 977.02, 230.922 )
 scale = Vector2( 0.7, 0.7 )
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 width = 50
 height = 50
 frequency = 0.8
 
-[node name="Wall" parent="." instance=ExtResource( 8 )]
-editor/display_folded = true
+[node name="Enemy4" parent="." groups=[
+"Enemy",
+] instance=ExtResource( 7 )]
+position = Vector2( 808.449, -74.3065 )
+scale = Vector2( 0.7, 0.7 )
+script = ExtResource( 8 )
+width = 300
+height = 0
+
+[node name="Enemy5" parent="." groups=[
+"Enemy",
+] instance=ExtResource( 7 )]
+position = Vector2( 1428.39, -6.65393 )
+scale = Vector2( 0.7, 0.7 )
+script = ExtResource( 8 )
+width = 0
+height = 165
+
+[node name="Enemy6" parent="." groups=[
+"Enemy",
+] instance=ExtResource( 7 )]
+position = Vector2( 1282.18, -6.654 )
+scale = Vector2( 0.7, 0.7 )
+script = ExtResource( 8 )
+width = 0
+height = 165
+xAxis = Vector2( 0, 1 )
+yAxis = Vector2( 1, 0 )
+
+[node name="Enemy7" parent="." groups=[
+"Enemy",
+] instance=ExtResource( 7 )]
+position = Vector2( 867.762, 325.153 )
+scale = Vector2( 0.7, 0.7 )
+script = ExtResource( 8 )
+width = 450
+height = 0
+
+[node name="Enemy8" parent="." groups=[
+"Enemy",
+] instance=ExtResource( 7 )]
+position = Vector2( 867.762, 372.153 )
+scale = Vector2( 0.7, 0.7 )
+script = ExtResource( 8 )
+width = 450
+height = 0
+
+[node name="Enemy9" parent="." groups=[
+"Enemy",
+] instance=ExtResource( 7 )]
+position = Vector2( 867.762, 417.153 )
+scale = Vector2( 0.7, 0.7 )
+script = ExtResource( 8 )
+width = 450
+height = 0
+
+[node name="Wall" parent="." instance=ExtResource( 9 )]
 position = Vector2( 987.115, 511.768 )
 scale = Vector2( 3.19512, 0.454543 )
 
-[node name="Wall2" parent="Wall" instance=ExtResource( 8 )]
+[node name="Wall2" parent="Wall" instance=ExtResource( 9 )]
 position = Vector2( 177.244, -954.783 )
 rotation = 1.5708
 scale = Vector2( 7.02931, 0.142262 )
 
-[node name="Wall3" parent="Wall" instance=ExtResource( 8 )]
+[node name="Wall3" parent="Wall" instance=ExtResource( 9 )]
 position = Vector2( -177.993, -954.837 )
 rotation = 1.5708
 scale = Vector2( 7.02931, 0.142262 )
 
-[node name="Wall4" parent="Wall" instance=ExtResource( 8 )]
+[node name="Wall4" parent="Wall" instance=ExtResource( 9 )]
 position = Vector2( 92.5504, -588.832 )
 scale = Vector2( 0.412464, 0.822854 )
 
-[node name="Wall5" parent="Wall" instance=ExtResource( 8 )]
+[node name="Wall5" parent="Wall" instance=ExtResource( 9 )]
 position = Vector2( 3.37778, -1087.44 )
 scale = Vector2( 0.412464, 0.822854 )
 
-[node name="Wall6" parent="Wall" instance=ExtResource( 8 )]
+[node name="Wall6" parent="Wall" instance=ExtResource( 9 )]
 position = Vector2( -97.2792, -593.581 )
+scale = Vector2( 0.412464, 0.822854 )
+
+[node name="Wall7" parent="Wall" instance=ExtResource( 9 )]
+position = Vector2( -101.718, -1686.95 )
+scale = Vector2( 0.412464, 0.822854 )
+
+[node name="Wall8" parent="Wall" instance=ExtResource( 9 )]
+position = Vector2( 92.0992, -1686.95 )
 scale = Vector2( 0.412464, 0.822854 )
 [connection signal="body_entered" from="IceFloor" to="Potato" method="_on_IceFloor_body_entered"]
 [connection signal="body_exited" from="IceFloor" to="Potato" method="_on_IceFloor_body_exited"]
