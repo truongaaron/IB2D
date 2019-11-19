@@ -31,12 +31,12 @@ func _input(event):
 	if Input.is_action_just_pressed("click"):
 		destination = get_global_mouse_position()
 
-func _process(delta):
+func _physics_process(delta):
 	var collision = move_and_collide(velocity * delta)
 	#print(frictions.front())
 	if collision:
 		if collision.collider.is_in_group("Donut"):
-			velocity = velocity.bounce(collision.normal) * 5
+			velocity = velocity.bounce(collision.normal)  * 5
 	
 	gap = Vector2(destination.x - position.x, destination.y - position.y)
 	var direction = gap.normalized()
@@ -82,6 +82,7 @@ func _on_Potato_Area_Entered(area):
 		destination.y = respawn_location.y
 		respawn()
 	if area.is_in_group("Checkpoint"):
+		frictions.push_front(default_friction)
 		respawn_location.x = area.position.x
 		respawn_location.y = area.position.y
 	if area.is_in_group("Floor"):
@@ -89,8 +90,8 @@ func _on_Potato_Area_Entered(area):
 			frictions.push_front(oil_friction)
 		if area.is_in_group("Ice"):
 			frictions.push_front(ice_friction)
-
-
+		
 func _on_Area2D_area_exited(area):
 	if area.is_in_group("Floor"):
 		frictions.pop_front()
+

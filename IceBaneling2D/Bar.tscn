@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://HeartCounter.tscn" type="PackedScene" id=1]
+[ext_resource path="res://HeartCounter.gd" type="Script" id=2]
+
+[node name="Control" type="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Counter" type="VBoxContainer" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 1080.08
+margin_top = 18.568
+margin_right = 1200.08
+margin_bottom = 58.568
+
+[node name="HeartCounter" parent="Counter" instance=ExtResource( 1 )]
+anchor_left = 0.0
+anchor_right = 0.0
+margin_left = 0.0
+margin_top = 0.0
+margin_right = 120.0
+margin_bottom = 48.0
+script = ExtResource( 2 )

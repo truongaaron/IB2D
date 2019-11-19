@@ -5,7 +5,9 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 348.735, 345.925 )
 
-[node name="Area2D" type="Area2D"]
+[node name="Area2D" type="Area2D" groups=[
+"Enemy",
+]]
 
 [node name="red" type="Sprite" parent="."]
 position = Vector2( 0.481171, 0.212349 )
