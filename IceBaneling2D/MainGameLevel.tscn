@@ -1,14 +1,25 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Level2.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Level1.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Level4.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Level3.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Level2.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Level1.tscn" type="PackedScene" id=4]
 
 [node name="Control" type="Control"]
 
-[node name="Level2" parent="." instance=ExtResource( 1 )]
-margin_left = 344.756
-margin_top = -918.995
-margin_right = 384.756
-margin_bottom = -878.995
+[node name="Level4" parent="." instance=ExtResource( 1 )]
+script = null
 
-[node name="Level1" parent="." instance=ExtResource( 2 )]
+[node name="Level3" parent="." instance=ExtResource( 2 )]
+margin_left = -32.4258
+margin_top = -3.3158
+margin_right = -32.4258
+margin_bottom = -3.3158
+script = null
+
+[node name="Level2" parent="." instance=ExtResource( 3 )]
+margin_top = -3.0
+margin_bottom = -3.0
+script = null
+
+[node name="Level1" parent="." instance=ExtResource( 4 )]

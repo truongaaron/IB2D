@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://Brick.tscn" type="PackedScene" id=2]
@@ -7,10 +7,9 @@
 [ext_resource path="res://checkpoint.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Donut.tscn" type="PackedScene" id=6]
 [ext_resource path="res://EnemyAxe.tscn" type="PackedScene" id=7]
-[ext_resource path="res://EnemyArea2D.gd" type="Script" id=8]
-[ext_resource path="res://Potato.tscn" type="PackedScene" id=9]
-[ext_resource path="res://PotatoArea2D.tscn" type="PackedScene" id=10]
-[ext_resource path="res://PotatoArea2DTest.gd" type="Script" id=11]
+[ext_resource path="res://Potato.tscn" type="PackedScene" id=8]
+[ext_resource path="res://PotatoArea2D.tscn" type="PackedScene" id=9]
+[ext_resource path="res://PotatoArea2DTest.gd" type="Script" id=10]
 
 [node name="Control" type="Control"]
 margin_right = 40.0
@@ -56,13 +55,11 @@ collision_layer = 2
 "Enemy",
 ] instance=ExtResource( 7 )]
 position = Vector2( 88.7085, 80.1146 )
-script = ExtResource( 8 )
 
 [node name="Enemy5" parent="." groups=[
 "Enemy",
 ] instance=ExtResource( 7 )]
 position = Vector2( 774.854, 385.622 )
-script = ExtResource( 8 )
 xAxis = Vector2( 0.5, -0.5 )
 yAxis = Vector2( 0.5, 0 )
 
@@ -70,15 +67,14 @@ yAxis = Vector2( 0.5, 0 )
 "Enemy",
 ] instance=ExtResource( 7 )]
 position = Vector2( 176.613, 335.037 )
-script = ExtResource( 8 )
 width = 0
 
-[node name="Potato" parent="." instance=ExtResource( 9 )]
+[node name="Potato" parent="." instance=ExtResource( 8 )]
 
-[node name="PotatoArea2D" parent="." instance=ExtResource( 10 )]
+[node name="PotatoArea2D" parent="." instance=ExtResource( 9 )]
 position = Vector2( 666.226, 126.981 )
 scale = Vector2( 2.5, 2.5 )
-script = ExtResource( 11 )
+script = ExtResource( 10 )
 [connection signal="body_entered" from="OilyFloor" to="Potato" method="_on_OilyFloor_body_entered"]
 [connection signal="body_exited" from="OilyFloor" to="Potato" method="_on_OilyFloor_body_exited"]
 [connection signal="body_entered" from="IceFloor" to="Potato" method="_on_IceFloor_body_entered"]

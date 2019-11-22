@@ -11,6 +11,7 @@ var frictions = Array()
 export var default_friction = 0.5
 export var ice_friction = 0.01
 export var oil_friction = .0001
+export var donut_bounce = 5
 export var speed = 200
 var destination = Vector2()
 var on_ice_destination = Vector2()
@@ -19,7 +20,7 @@ var gap = Vector2()
 var on_ice = false
 var on_oil = false
 
-var respawn_location = Vector2(0,0)
+export var respawn_location = Vector2(0,0)
 
 func _ready():
 	destination = Vector2(position.x, position.y)
@@ -36,7 +37,7 @@ func _physics_process(delta):
 	#print(frictions.front())
 	if collision:
 		if collision.collider.is_in_group("Donut"):
-			velocity = velocity.bounce(collision.normal)  * 5
+			velocity = velocity.bounce(collision.normal)  * donut_bounce
 	
 	gap = Vector2(destination.x - position.x, destination.y - position.y)
 	var direction = gap.normalized()
@@ -90,8 +91,27 @@ func _on_Potato_Area_Entered(area):
 			frictions.push_front(oil_friction)
 		if area.is_in_group("Ice"):
 			frictions.push_front(ice_friction)
+	if area.is_in_group("Finish"):
+		if area.is_in_group("toLevel2"):
+			destination.x = respawn_location.x
+			destination.y = respawn_location.y
+			respawn_location.x = 1972.088
+			respawn_location.y = 951.816
+			respawn()
+		if area.is_in_group("toLevel3"):
+			destination.x = respawn_location.x
+			destination.y = respawn_location.y
+			respawn_location.x = 3350.862
+			respawn_location.y = 951.816
+			donut_bounce = 15
+			respawn()
+		if area.is_in_group("toLevel4"):
+			destination.x = respawn_location.x
+			destination.y = respawn_location.y
+			respawn_location.x = 4632.09
+			respawn_location.y = 951.816
+			respawn()
 		
 func _on_Area2D_area_exited(area):
 	if area.is_in_group("Floor"):
 		frictions.pop_front()
-
