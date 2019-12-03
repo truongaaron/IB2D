@@ -15,8 +15,8 @@
 script = ExtResource( 1 )
 
 [node name="IceFloor" parent="." groups=[
-"Floor",
 "Ice",
+"Floor",
 ] instance=ExtResource( 2 )]
 position = Vector2( 3345.86, 469.953 )
 scale = Vector2( 7.43407, 6.16213 )
@@ -242,6 +242,5 @@ position = Vector2( 3236.73, 803.091 )
 scale = Vector2( 5.59256, 5.59256 )
 
 [node name="Potato" parent="." instance=ExtResource( 10 )]
-position = Vector2( 4047.31, 294.37 )
-rotation = -1.7988e-006
+position = Vector2( 3350.81, 951.434 )
 donut_bounce = 15

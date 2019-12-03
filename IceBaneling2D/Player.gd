@@ -20,7 +20,7 @@ var gap = Vector2()
 var on_ice = false
 var on_oil = false
 
-export var respawn_location = Vector2(0,0)
+var respawn_location = Vector2(0,0)
 
 func _ready():
 	destination = Vector2(position.x, position.y)
@@ -58,7 +58,6 @@ func _physics_process(delta):
 
 func _on_IceFloor_body_entered(body):
 	if body.name == "Potato":
-		print("entered")
 		on_ice = true
 
 func _on_IceFloor_body_exited(body):
@@ -67,7 +66,6 @@ func _on_IceFloor_body_exited(body):
 
 func _on_OilyFloor_body_entered(body):
 	if body.name == "Potato":
-		print('Oily')
 		on_oil = true
 
 func _on_OilyFloor_body_exited(body):
@@ -93,24 +91,11 @@ func _on_Potato_Area_Entered(area):
 			frictions.push_front(ice_friction)
 	if area.is_in_group("Finish"):
 		if area.is_in_group("toLevel2"):
-			destination.x = respawn_location.x
-			destination.y = respawn_location.y
-			respawn_location.x = 1972.088
-			respawn_location.y = 951.816
-			respawn()
+			get_tree().change_scene('res://Level2.tscn')
 		if area.is_in_group("toLevel3"):
-			destination.x = respawn_location.x
-			destination.y = respawn_location.y
-			respawn_location.x = 3350.862
-			respawn_location.y = 951.816
-			donut_bounce = 15
-			respawn()
+			get_tree().change_scene('res://Level3.tscn')
 		if area.is_in_group("toLevel4"):
-			destination.x = respawn_location.x
-			destination.y = respawn_location.y
-			respawn_location.x = 4632.09
-			respawn_location.y = 951.816
-			respawn()
+			get_tree().change_scene('res://Level4.tscn')
 		
 func _on_Area2D_area_exited(area):
 	if area.is_in_group("Floor"):

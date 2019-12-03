@@ -15,8 +15,8 @@
 script = ExtResource( 1 )
 
 [node name="IceFloor" parent="." groups=[
-"Floor",
 "Ice",
+"Floor",
 ] instance=ExtResource( 2 )]
 position = Vector2( 4727.62, 472.575 )
 scale = Vector2( 7.43407, 6.16213 )
@@ -281,4 +281,9 @@ rotation = 1.57082
 scale = Vector2( 1.29977, 0.352193 )
 
 [node name="Potato" parent="." instance=ExtResource( 10 )]
-position = Vector2( 4661.07, 939.636 )
+position = Vector2( 4682.38, 951.844 )
+ice_friction = 0.09
+[connection signal="body_entered" from="IceFloor" to="Potato" method="_on_IceFloor_body_entered"]
+[connection signal="body_exited" from="IceFloor" to="Potato" method="_on_IceFloor_body_exited"]
+[connection signal="body_entered" from="OilyFloor" to="Potato" method="_on_OilyFloor_body_entered"]
+[connection signal="body_exited" from="OilyFloor" to="Potato" method="_on_OilyFloor_body_exited"]

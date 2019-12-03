@@ -48,7 +48,7 @@ alignment = 1
 margin_top = 58.0
 margin_right = 552.0
 margin_bottom = 118.0
-scene_to_load = "res://MainGameLevel.tscn"
+scene_to_load = "res://Level1.tscn"
 
 [node name="ContinueButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 4 )]
 margin_top = 138.0
